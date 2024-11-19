@@ -1,9 +1,12 @@
 import { getUrlImage } from "../utils"
 
 export const EleveCard = (eleve) => {
-    console.log(eleve)
     return (
-        <div key={`eleve_card_${eleve.id}`} className="eleve-card">
+        <div
+            key={`eleve_card_${eleve.id}`}
+            className="eleve-card"
+            style={{ borderColor: eleve.current_rank.color }}
+        >
             <div className="elo">
                 <span>{`elo ${eleve.elo}`}</span>
             </div>
@@ -19,7 +22,9 @@ export const EleveCard = (eleve) => {
                             src={getUrlImage(eleve.current_rank.image)}
                             alt=""
                         />
-                        <span>{eleve.current_rank.label}</span>
+                        <span style={{ color: eleve.current_rank.color }}>
+                            {eleve.current_rank.label}
+                        </span>
                     </div>
                 </div>
             </div>

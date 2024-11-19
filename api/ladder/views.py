@@ -38,8 +38,8 @@ class EleveView(View):
                 nb = int(type[3:])
             except Exception:
                 nb = 3
-            eleves = Eleve.objects.order_by('-elo')[:nb]
+            eleves = Eleve.objects.order_by('-elo', 'prenom')[:nb]
         else:
-            eleves = Eleve.objects.order_by('nom', 'prenom')
+            eleves = Eleve.objects.order_by('prenom')
         eleves_data = EleveSerializer(eleves, many=True).data
         return JsonResponse(eleves_data, safe=False)

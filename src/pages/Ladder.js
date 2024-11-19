@@ -45,7 +45,7 @@ function Ladder(props) {
     return (
         <div
             className="container-fluid base-container"
-            style={{ minHeight: props.vpHeight, paddingTop: 100 }}
+            style={{ minHeight: props.vpHeight }}
         >
             <h1 className="main-title mb-5">Ladder</h1>
             <div className="d-flex flex-row">

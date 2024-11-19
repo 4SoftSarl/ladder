@@ -9,8 +9,14 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  padding-top: 100px;
+  color: #eee;
   background: rgb(2, 0, 36);
   background: linear-gradient(90deg, rgb(2, 0, 36) 0%, rgb(42, 42, 228) 36%, rgb(23, 79, 190) 100%);
+}
+.base-container p {
+  text-align: justify;
+  max-width: 800px;
 }
 
 .main-title {
@@ -74,4 +80,56 @@
 .ladder-component .ladder-eleve {
   display: flex;
   flex-direction: row;
+}
+
+.eleve-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border: 2px solid #fff;
+  border-radius: 20px;
+  width: 250px;
+  margin: 10px;
+}
+.eleve-card .elo {
+  margin-bottom: 10px;
+  color: #2ecc71;
+  padding: 0 10px;
+  border: 1px solid #2ecc71;
+  border-radius: 5px;
+}
+.eleve-card .eleve-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+.eleve-card .eleve-container .image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 100px;
+  position: relative;
+}
+.eleve-card .eleve-container .image-container img {
+  max-width: 100px;
+  max-height: 100px;
+}
+.eleve-card .eleve-container .info-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.eleve-card .eleve-container .info-container .rank {
+  height: 26px;
+}
+.eleve-card .eleve-container .info-container .rank img {
+  max-height: 26px;
+  padding: 0 5px 5px 0;
 }

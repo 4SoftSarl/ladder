@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect } from "react"
-import { BASE_URL, spinner } from "../utils"
+import { getUrlImage, spinner } from "../utils"
 import { fetchRankings } from "../store/reducers/ranking"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faLessThan, faLessThanEqual } from "@fortawesome/free-solid-svg-icons"
@@ -13,7 +13,7 @@ function Ranking(props) {
         return (
             <div key={`ranking_${ranking.id}`} className="ranking-component">
                 <h2>{ranking.label}</h2>
-                <img src={BASE_URL + ranking.image} alt={ranking.label} />
+                <img src={getUrlImage(ranking.image)} alt={ranking.label} />
                 <div className="elo-line">
                     <span>{ranking.elo_min}</span>
                     <FontAwesomeIcon icon={faLessThanEqual} />
@@ -33,7 +33,7 @@ function Ranking(props) {
     return (
         <div
             className="container-fluid base-container"
-            style={{ minHeight: props.vpHeight, paddingTop: 100 }}
+            style={{ minHeight: props.vpHeight }}
         >
             <h1 className="main-title mb-5">Ranking</h1>
             <div className="d-flex flex-row">

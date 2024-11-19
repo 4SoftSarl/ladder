@@ -5,10 +5,10 @@ import {
     Route,
     NavLink
 } from "react-router-dom"
-import Home from "./components/Home"
+import Home from "./pages/Home"
 import { useState, useEffect } from "react"
-import Ranking from "./components/Ranking"
-import Ladder from "./components/Ladder"
+import Ranking from "./pages/Ranking"
+import Ladder from "./pages/Ladder"
 
 function App() {
     const NAV_HEIGHT = 73

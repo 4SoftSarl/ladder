@@ -26,6 +26,7 @@ class Eleve(models.Model):
     email = models.CharField(max_length=50)
     elo = models.IntegerField()
     volee = models.ForeignKey(Volee, on_delete=models.PROTECT, related_name="eleves")
+    image = models.ImageField(upload_to="eleve/", null=True, blank=True, default=None)
 
     def __str__(self):
         return self.nom + " " + self.prenom

@@ -11,13 +11,17 @@ function Ranking(props) {
 
     const rankingComponent = (ranking) => {
         return (
-            <div key={`ranking_${ranking.id}`} className="ranking-component">
-                <h2>{ranking.label}</h2>
+            <div
+                key={`ranking_${ranking.id}`}
+                className="ranking-component"
+                style={{ borderColor: ranking.color }}
+            >
+                <h2 style={{ color: ranking.color }}>{ranking.label}</h2>
                 <img src={getUrlImage(ranking.image)} alt={ranking.label} />
                 <div className="elo-line">
                     <span>{ranking.elo_min}</span>
                     <FontAwesomeIcon icon={faLessThanEqual} />
-                    <span>{"elo"}</span>
+                    <span style={{ color: ranking.color }}>{"elo"}</span>
                     <FontAwesomeIcon icon={faLessThan} />
                     <span>{ranking.elo_max}</span>
                 </div>

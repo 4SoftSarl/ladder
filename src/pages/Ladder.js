@@ -11,7 +11,7 @@ function Ladder(props) {
         return (
             <div key={`ladder_${ladder.id}`} className="ladder-component">
                 <h2>{ladder.label}</h2>
-                <table className="table">
+                <table className="table table-striped">
                     <thead>
                         <tr>
                             <th>#</th>

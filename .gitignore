@@ -199,6 +199,7 @@ FakesAssemblies/
 /node_modules
 /.pnp
 .pnp.js
+.venv
 
 # testing
 /coverage
@@ -218,6 +219,6 @@ yarn-debug.log*
 yarn-error.log*
 
 # project
-/api/db.sqlite3
-
+api/db.sqlite3
+media/
 **/__pycache__

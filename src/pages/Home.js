@@ -8,16 +8,22 @@ function Home(props) {
     const dispatch = useDispatch()
     const eleveState = useSelector((state) => state.eleve)
 
-    const voleeComponent = (volee) => {
-        return (
-            <div key={`volee_${volee.id}`} className="volee-component">
-                <span>{`${volee.label} - ${volee.date_debut} à ${volee.date_fin}`}</span>
+    const drawEleveListe = () => {
+        if (eleveState.fetchEleve.loading) return spinner()
+        let elemPerRow = 3
+        let nbLoop = Math.floor(eleveState.eleve.length / elemPerRow)
+        let l = Array.from({ length: nbLoop }, (_, i) => i)
+        return l.map((i) => (
+            <div key={`liste_eleve_${i}`} className="d-flex flex-row">
+                {eleveState.eleve
+                    .slice(i * elemPerRow, (i + 1) * elemPerRow)
+                    .map((eleve) => EleveCard(eleve))}
             </div>
-        )
+        ))
     }
 
     useEffect(() => {
-        dispatch(fetchEleves({ type: "top3" }))
+        dispatch(fetchEleves({ type: "top6" }))
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -42,11 +48,7 @@ function Home(props) {
                 corrupti ab dicta quas a fugiat ipsum eligendi.
             </p>
             <h2>Top students</h2>
-            <div className="d-flex flex-row">
-                {eleveState.fetchEleve.loading
-                    ? spinner()
-                    : eleveState.eleve.map((eleve) => EleveCard(eleve))}
-            </div>
+            {drawEleveListe()}
         </div>
     )
 }

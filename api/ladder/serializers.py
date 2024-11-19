@@ -4,6 +4,7 @@ from .models import *
 
 class EleveSerializer(serializers.ModelSerializer):
     current_rank = serializers.SerializerMethodField("get_current_rank")
+    volee_nom = serializers.SerializerMethodField("get_volee_nom")
 
     class Meta:
         model = Eleve
@@ -12,6 +13,9 @@ class EleveSerializer(serializers.ModelSerializer):
     def get_current_rank(self, instance):
         rank = Ranking.objects.get(elo_min__lte=instance.elo, elo_max__gt=instance.elo)
         return RankingSerializer(rank, many=False).data
+    
+    def get_volee_nom(self, instance):
+        return instance.volee.label
 
 
 class VoleeSerializer(serializers.ModelSerializer):

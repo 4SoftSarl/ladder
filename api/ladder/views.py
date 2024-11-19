@@ -27,3 +27,19 @@ class LadderView(View):
             volee = Volee.objects.all().order_by('-date_fin')
         volee_data = VoleeSerializer(volee, many=True).data
         return JsonResponse(volee_data, safe=False)
+
+
+class EleveView(View):
+    def get(self, request):
+        params = request.GET
+        type = params.get("type", "")
+        if "top" in type:
+            try:
+                nb = int(type[3:])
+            except Exception:
+                nb = 3
+            eleves = Eleve.objects.order_by('-elo')[:nb]
+        else:
+            eleves = Eleve.objects.order_by('nom', 'prenom')
+        eleves_data = EleveSerializer(eleves, many=True).data
+        return JsonResponse(eleves_data, safe=False)

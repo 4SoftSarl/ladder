@@ -12,7 +12,7 @@ export const EleveCard = (eleve) => {
             </div>
             <div className="eleve-container">
                 <div className="image-container">
-                    <img src={getUrlImage(eleve.current_rank.image)} alt="" />
+                    <img src={getUrlImage(eleve.image)} alt="" />
                 </div>
                 <div className="info-container">
                     <span>{eleve.prenom}</span>

@@ -83,6 +83,78 @@
   flex-direction: row;
 }
 
+.statistiques {
+  width: 100%;
+  background-color: #27ae60;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.chart-container {
+  min-width: 300px;
+  margin: 0 25px;
+}
+.chart-container > h2 {
+  margin-bottom: 0;
+}
+.chart-container .info {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.chart-container .info h4 {
+  width: 40px;
+  margin: 0;
+}
+.chart-container .info img,
+.chart-container .info h4 {
+  margin: 0 5px;
+}
+
+.clickable {
+  transition: all 0.2s ease-in-out;
+}
+.clickable.clicked {
+  transform: scale(1.1);
+}
+.clickable:hover {
+  cursor: pointer;
+}
+
+.eleve-card-small {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border: 4px solid #fff;
+  border-radius: 20px;
+  width: 200px;
+  margin: 10px;
+}
+.eleve-card-small h2 {
+  margin: 5px 0;
+}
+.eleve-card-small h4 {
+  margin: 0;
+}
+.eleve-card-small .row {
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.eleve-card-small img {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+}
+
 .eleve-card {
   position: relative;
   display: flex;
@@ -93,15 +165,61 @@
   background-color: rgba(255, 255, 255, 0.2);
   border: 4px solid #fff;
   border-radius: 20px;
-  width: 250px;
+  width: 350px;
   margin: 10px;
 }
-.eleve-card .elo {
-  margin-bottom: 10px;
+.eleve-card h2 {
+  margin: 0;
+}
+.eleve-card.small {
+  transform: scale(0.8);
+}
+.eleve-card.small.selected {
+  transform: scale(0.9);
+}
+.eleve-card.selected {
+  transform: scale(1.1);
+}
+.eleve-card .title {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  text-align: center;
+}
+.eleve-card .title h2,
+.eleve-card .title .img-container {
+  width: 30%;
+  margin: 0;
+}
+.eleve-card .title img {
+  width: 40px;
+  height: 40px;
+}
+.eleve-card .rank {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 10px 0;
+}
+.eleve-card .rank .elo {
   color: #2ecc71;
-  padding: 0 10px;
-  border: 1px solid #2ecc71;
-  border-radius: 5px;
+  text-align: left;
+}
+.eleve-card .rank img {
+  width: 45px;
+  height: 45px;
+  margin: 0 20px;
+}
+.eleve-card .rank h4 {
+  width: 40%;
+  margin: 0;
+}
+.eleve-card .rank .classement {
+  text-align: right;
 }
 .eleve-card .eleve-container {
   display: flex;
@@ -127,10 +245,112 @@
   justify-content: space-between;
   align-items: flex-end;
 }
-.eleve-card .eleve-container .info-container .rank {
-  height: 26px;
+.eleve-card .eleve-container .info-container .pushups img {
+  height: 24px;
 }
-.eleve-card .eleve-container .info-container .rank img {
-  max-height: 26px;
-  padding: 0 5px 5px 0;
+
+.examen-card-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  min-width: 600px;
+}
+.examen-card-row h2 {
+  width: 200px;
+}
+.examen-card-row .examen-card-row-elo {
+  text-align: center;
+}
+.examen-card-row:not(:last-child) {
+  margin-bottom: 20px;
+}
+.examen-card-row:last-child {
+  margin-bottom: 48px;
+}
+
+.examen-card {
+  position: relative;
+  width: 200px;
+  height: 200px;
+}
+.examen-card .img-difficulte,
+.examen-card .img-sous-categorie {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+}
+.examen-card .img-sous-categorie {
+  z-index: 5;
+}
+
+.examen-details {
+  display: flex;
+  flex-direction: row;
+  width: 500px;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border: 4px solid #fff;
+  border-radius: 20px;
+}
+.examen-details:not(:last-child) {
+  margin-bottom: 48px;
+}
+.examen-details .left-col,
+.examen-details .right-col {
+  display: flex;
+  flex-direction: column;
+}
+.examen-details .left-col {
+  flex-grow: 1;
+}
+.examen-details .left-col .icon-span {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+.examen-details .left-col .icon-span svg {
+  margin-right: 10px;
+}
+.examen-details .right-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.examen-details .right-col .file {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+}
+.examen-details .right-col .file svg {
+  height: 25px;
+}
+
+.text-justify {
+  text-align: justify;
+}
+
+.color-green1 {
+  color: #2ecc71;
+}
+
+.color-red1 {
+  color: #e74c3c;
+}
+
+.color-orange1 {
+  color: #e67e22;
+}
+
+.color-white1 {
+  color: #fff;
+}
+
+.color-white2 {
+  color: #aaa;
 }

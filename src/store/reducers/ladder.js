@@ -1,19 +1,41 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import { BASE_URL_API } from "../../utils"
+import { BASE_URL_API, setUrlParams } from "../../utils"
 
 const initialState = {
-    ladder: [],
+    ladder: {},
     fetchLadder: {
+        loading: false,
+        loaded: false,
+        error: false
+    },
+    eleve: {},
+    eleve_res: [],
+    fetchEleveAndResultats: {
         loading: false,
         error: false
     }
 }
 
+export const fetchEleveAndResultats = createAsyncThunk(
+    "ladder/fetchEleveAndResultat",
+    async (params, thunkAPI) => {
+        let url = setUrlParams(`${BASE_URL_API}ladder/eleve`, params)
+        try {
+            const response = await fetch(url)
+            const data = await response.json()
+            return data
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error.message)
+        }
+    }
+)
+
 export const fetchLadders = createAsyncThunk(
     "ladder/fetchLadders",
-    async (_, thunkAPI) => {
+    async (params, thunkAPI) => {
+        let url = setUrlParams(`${BASE_URL_API}ladder/ladder`, params)
         try {
-            const response = await fetch(`${BASE_URL_API}ladder/ladder`)
+            const response = await fetch(url)
             const data = await response.json()
             return data
         } catch (error) {
@@ -35,6 +57,7 @@ const ladderSlice = createSlice({
             .addCase(fetchLadders.fulfilled, (state, action) => {
                 state.fetchLadder = {
                     loading: false,
+                    loaded: true,
                     error: false
                 }
                 state.ladder = action.payload
@@ -44,7 +67,27 @@ const ladderSlice = createSlice({
                     loading: false,
                     error: action.payload
                 }
-                state.ladder = []
+                state.ladder = {}
+            })
+            .addCase(fetchEleveAndResultats.pending, (state) => {
+                state.fetchEleveAndResultats.loading = true
+                state.fetchEleveAndResultats.error = false
+            })
+            .addCase(fetchEleveAndResultats.fulfilled, (state, action) => {
+                state.fetchEleveAndResultats = {
+                    loading: false,
+                    error: false
+                }
+                state.eleve = action.payload.eleve
+                state.eleve_res = action.payload.eleve_res
+            })
+            .addCase(fetchEleveAndResultats.rejected, (state, action) => {
+                state.fetchEleveAndResultats = {
+                    loading: false,
+                    error: action.payload
+                }
+                state.eleve = {}
+                state.eleve_res = []
             })
     }
 })

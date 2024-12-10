@@ -6,6 +6,8 @@ $orange2: #fd6a02;
 $yellow1: #f1c40f;
 $red1: #e74c3c;
 $card-bg: rgba(255, 255, 255, 0.2);
+$white1: #fff;
+$white2: #aaa;
 
 * {
     margin: 0;
@@ -105,6 +107,86 @@ $card-bg: rgba(255, 255, 255, 0.2);
     }
 }
 
+.statistiques {
+    width: 100%;
+    background-color: #27ae60;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.chart-container {
+    min-width: 300px;
+    margin: 0 25px;
+
+    > h2 {
+        margin-bottom: 0;
+    }
+
+    .info {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+
+        h4 {
+            width: 40px;
+            margin: 0;
+        }
+
+        img,
+        h4 {
+            margin: 0 5px;
+        }
+    }
+}
+
+.clickable {
+    transition: all 0.2s ease-in-out;
+    &.clicked {
+        transform: scale(1.1);
+    }
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.eleve-card-small {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: $card-bg;
+    border: 4px solid #fff;
+    border-radius: 20px;
+    width: 200px;
+    margin: 10px;
+
+    h2 {
+        margin: 5px 0;
+    }
+    h4 {
+        margin: 0;
+    }
+
+    .row {
+        width: 80%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    img {
+        width: 40px;
+        height: 40px;
+        padding: 0;
+    }
+}
+
 .eleve-card {
     position: relative;
     display: flex;
@@ -115,15 +197,70 @@ $card-bg: rgba(255, 255, 255, 0.2);
     background-color: $card-bg;
     border: 4px solid #fff;
     border-radius: 20px;
-    width: 250px;
+    width: 350px;
     margin: 10px;
 
-    .elo {
-        margin-bottom: 10px;
-        color: $green1;
-        padding: 0 10px;
-        border: 1px solid $green1;
-        border-radius: 5px;
+    h2 {
+        margin: 0;
+    }
+
+    &.small {
+        transform: scale(0.8);
+
+        &.selected {
+            transform: scale(0.9);
+        }
+    }
+
+    &.selected {
+        transform: scale(1.1);
+    }
+
+    .title {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        text-align: center;
+
+        h2,
+        .img-container {
+            width: 30%;
+            margin: 0;
+        }
+
+        img {
+            width: 40px;
+            height: 40px;
+        }
+    }
+
+    .rank {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        margin: 10px 0;
+
+        .elo {
+            color: $green1;
+            text-align: left;
+        }
+        img {
+            width: 45px;
+            height: 45px;
+            margin: 0 20px;
+        }
+        h4 {
+            width: 40%;
+            margin: 0;
+        }
+
+        .classement {
+            text-align: right;
+        }
     }
 
     .eleve-container {
@@ -152,14 +289,130 @@ $card-bg: rgba(255, 255, 255, 0.2);
             justify-content: space-between;
             align-items: flex-end;
 
-            .rank {
-                height: 26px;
-
+            .pushups {
                 img {
-                    max-height: 26px;
-                    padding: 0 5px 5px 0;
+                    height: 24px;
                 }
             }
         }
     }
+}
+
+.examen-card-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 600px;
+
+    h2 {
+        width: 200px;
+    }
+
+    .examen-card-row-elo {
+        text-align: center;
+    }
+
+    &:not(:last-child) {
+        margin-bottom: 20px;
+    }
+
+    &:last-child {
+        margin-bottom: 48px;
+    }
+}
+
+.examen-card {
+    position: relative;
+    width: 200px;
+    height: 200px;
+
+    .img-difficulte,
+    .img-sous-categorie {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 10;
+    }
+
+    .img-sous-categorie {
+        z-index: 5;
+    }
+}
+
+.examen-details {
+    display: flex;
+    flex-direction: row;
+    width: 500px;
+    padding: 20px;
+    background-color: $card-bg;
+    border: 4px solid #fff;
+    border-radius: 20px;
+
+    &:not(:last-child) {
+        margin-bottom: 48px;
+    }
+
+    .left-col,
+    .right-col {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .left-col {
+        flex-grow: 1;
+
+        .icon-span {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+
+            svg {
+                margin-right: 10px;
+            }
+        }
+    }
+
+    .right-col {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        .file {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 10px;
+
+            svg {
+                height: 25px;
+            }
+        }
+    }
+}
+
+.text-justify {
+    text-align: justify;
+}
+
+.color-green1 {
+    color: $green1;
+}
+
+.color-red1 {
+    color: $red1;
+}
+
+.color-orange1 {
+    color: $orange1;
+}
+
+.color-white1 {
+    color: $white1;
+}
+
+.color-white2 {
+    color: $white2;
 }

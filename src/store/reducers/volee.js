@@ -3,6 +3,7 @@ import { BASE_URL_API } from "../../utils"
 
 const initialState = {
     volee: [],
+    selectedVolee: -1,
     fetchVolee: {
         loading: false,
         error: false
@@ -25,7 +26,11 @@ export const fetchVolees = createAsyncThunk(
 const voleeSlice = createSlice({
     name: "volee",
     initialState,
-    reducers: {},
+    reducers: {
+        setSelectedVolee: (state, action) => {
+            state.selectedVolee = action.payload
+        }
+    },
     extraReducers: (builder) => {
         builder
             .addCase(fetchVolees.pending, (state) => {
@@ -38,6 +43,7 @@ const voleeSlice = createSlice({
                     error: false
                 }
                 state.volee = action.payload
+                if (action.payload.length > 0) state.selectedVolee = 0
             })
             .addCase(fetchVolees.rejected, (state, action) => {
                 state.fetchVolee = {
@@ -45,8 +51,21 @@ const voleeSlice = createSlice({
                     error: action.payload
                 }
                 state.volee = []
+                state.selectedVolee = -1
             })
     }
 })
 
+export const { setSelectedVolee } = voleeSlice.actions
+
 export default voleeSlice.reducer
+
+export const getVoleeName = (state) =>
+    state.volee.selectedVolee !== -1
+        ? state.volee.volee[state.volee.selectedVolee].label
+        : ""
+
+export const getVolee = (state) =>
+    state.volee.selectedVolee !== -1
+        ? state.volee.volee[state.volee.selectedVolee]
+        : false

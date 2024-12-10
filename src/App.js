@@ -7,8 +7,9 @@ import {
 } from "react-router-dom"
 import Home from "./pages/Home"
 import { useState, useEffect } from "react"
-import Ranking from "./pages/Ranking"
 import Ladder from "./pages/Ladder"
+import Examen from "./pages/Examen"
+import Reglement from "./pages/Reglement"
 
 function App() {
     const NAV_HEIGHT = 73
@@ -39,8 +40,8 @@ function App() {
                         </NavLink>
                     </li>
                     <li className="nav-item p-2">
-                        <NavLink to="/ranking" className="nav-link">
-                            Ranking
+                        <NavLink to="/reglement" className="nav-link">
+                            Règlement
                         </NavLink>
                     </li>
                     <li className="nav-item p-2">
@@ -48,17 +49,26 @@ function App() {
                             Ladder
                         </NavLink>
                     </li>
+                    <li className="nav-item p-2">
+                        <NavLink to="/examen" className="nav-link">
+                            Examen
+                        </NavLink>
+                    </li>
                 </ul>
             </nav>
             <Routes>
                 <Route path="/" element={<Home vpHeight={vpHeight} />} />
                 <Route
-                    path="/ranking"
-                    element={<Ranking vpHeight={vpHeight} />}
+                    path="/reglement"
+                    element={<Reglement vpHeight={vpHeight} />}
                 />
                 <Route
                     path="/ladder"
                     element={<Ladder vpHeight={vpHeight} />}
+                />
+                <Route
+                    path="/examen"
+                    element={<Examen vpHeight={vpHeight} />}
                 />
             </Routes>
         </Router>

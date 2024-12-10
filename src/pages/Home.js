@@ -3,6 +3,7 @@ import { useEffect } from "react"
 import { spinner } from "../utils"
 import { fetchEleves } from "../store/reducers/eleve"
 import { EleveCard } from "../components/eleve"
+import { fetchBases } from "../store/reducers/base"
 
 function Home(props) {
     const dispatch = useDispatch()
@@ -10,20 +11,18 @@ function Home(props) {
 
     const drawEleveListe = () => {
         if (eleveState.fetchEleve.loading) return spinner()
-        let elemPerRow = 3
-        let nbLoop = Math.floor(eleveState.eleve.length / elemPerRow)
-        let l = Array.from({ length: nbLoop }, (_, i) => i)
-        return l.map((i) => (
-            <div key={`liste_eleve_${i}`} className="d-flex flex-row">
-                {eleveState.eleve
-                    .slice(i * elemPerRow, (i + 1) * elemPerRow)
-                    .map((eleve) => EleveCard(eleve))}
+        return (
+            <div className="d-flex flex-row">
+                {eleveState.eleve.map((eleve, index) =>
+                    EleveCard(eleve, index)
+                )}
             </div>
-        ))
+        )
     }
 
     useEffect(() => {
-        dispatch(fetchEleves({ type: "top6" }))
+        dispatch(fetchBases())
+        dispatch(fetchEleves({ type: "top3" }))
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -33,7 +32,7 @@ function Home(props) {
             style={{ minHeight: props.vpHeight }}
         >
             <h1 className="main-title mb-5">ICT-Start Ladder</h1>
-            <p>
+            <p className="mb-5 color-white2">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
                 Sapiente, sequi. Quae voluptatibus numquam ratione esse ea rem
                 id culpa exercitationem maxime. Facere distinctio aspernatur
@@ -47,7 +46,7 @@ function Home(props) {
                 nostrum, omnis ipsa eos illo velit nulla quos. Sed modi itaque
                 corrupti ab dicta quas a fugiat ipsum eligendi.
             </p>
-            <h2>Top students</h2>
+            <h2 className="mb-5">Top students</h2>
             {drawEleveListe()}
         </div>
     )

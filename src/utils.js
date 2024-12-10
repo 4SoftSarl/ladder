@@ -5,7 +5,14 @@ export const BASE_URL = "http://localhost:8000"
 export const BASE_URL_API = `${BASE_URL}/api/`
 
 export const spinner = (color = "#fff") => {
-    return <FontAwesomeIcon spin icon={faSync} style={{ color }} />
+    return (
+        <FontAwesomeIcon
+            spin
+            icon={faSync}
+            style={{ color }}
+            className="mb-5"
+        />
+    )
 }
 
 export const getUrlImage = (src) => {

@@ -220,5 +220,6 @@ yarn-error.log*
 
 # project
 api/db.sqlite3
+api/static
 media/
 **/__pycache__

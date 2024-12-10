@@ -2,19 +2,18 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { BASE_URL_API, setUrlParams } from "../../utils"
 
 const initialState = {
-    eleve: [],
-    fetchEleve: {
+    examen: [],
+    fetchExamen: {
         loading: false,
         error: false
     }
 }
 
-export const fetchEleves = createAsyncThunk(
-    "eleve/fetchEleves",
+export const fetchExamens = createAsyncThunk(
+    "examen/fetchExamens",
     async (params, thunkAPI) => {
-        let url = setUrlParams(`${BASE_URL_API}ladder/eleve`, params)
+        let url = setUrlParams(`${BASE_URL_API}ladder/examen`, params)
         try {
-            await fetch(`${BASE_URL_API}ladder/admin`)
             const response = await fetch(url)
             const data = await response.json()
             return data
@@ -24,31 +23,31 @@ export const fetchEleves = createAsyncThunk(
     }
 )
 
-const eleveSlice = createSlice({
-    name: "eleve",
+const examenSlice = createSlice({
+    name: "examen",
     initialState,
     reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(fetchEleves.pending, (state) => {
-                state.fetchEleve.loading = true
-                state.fetchEleve.error = false
+            .addCase(fetchExamens.pending, (state) => {
+                state.fetchExamen.loading = true
+                state.fetchExamen.error = false
             })
-            .addCase(fetchEleves.fulfilled, (state, action) => {
-                state.fetchEleve = {
+            .addCase(fetchExamens.fulfilled, (state, action) => {
+                state.fetchExamen = {
                     loading: false,
                     error: false
                 }
-                state.eleve = action.payload
+                state.examen = action.payload
             })
-            .addCase(fetchEleves.rejected, (state, action) => {
-                state.fetchEleve = {
+            .addCase(fetchExamens.rejected, (state, action) => {
+                state.fetchExamen = {
                     loading: false,
                     error: action.payload
                 }
-                state.eleve = []
+                state.examen = []
             })
     }
 })
 
-export default eleveSlice.reducer
+export default examenSlice.reducer

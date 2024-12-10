@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import *
+from .utils import get_delta_rank_name
 
 
 class EleveSerializer(serializers.ModelSerializer):
@@ -12,7 +13,9 @@ class EleveSerializer(serializers.ModelSerializer):
 
     def get_current_rank(self, instance):
         rank = Ranking.objects.get(elo_min__lte=instance.elo, elo_max__gt=instance.elo)
-        return RankingSerializer(rank, many=False).data
+        rank_data = RankingSerializer(rank, many=False).data
+        rank_data["rank_name"] = get_delta_rank_name(rank, instance.elo)
+        return rank_data
     
     def get_volee_nom(self, instance):
         return instance.volee.label
@@ -22,6 +25,7 @@ class VoleeSerializer(serializers.ModelSerializer):
     date_debut = serializers.DateField(format="%d-%m-%Y")
     date_fin = serializers.DateField(format="%d-%m-%Y")
     eleves = serializers.SerializerMethodField("get_eleves")
+    label = serializers.SerializerMethodField("get_label")
 
     class Meta:
         model = Volee
@@ -30,6 +34,10 @@ class VoleeSerializer(serializers.ModelSerializer):
     def get_eleves(self, instance):
         eleves = instance.eleves.order_by("-elo", "nom", "prenom")
         return EleveSerializer(eleves, many=True).data
+    
+
+    def get_label(self, instance):
+        return f"{instance.label} • {instance.date_debut.strftime('%Y')} - {instance.date_fin.strftime('%Y')}"
 
 
 class RankingSerializer(serializers.ModelSerializer):
@@ -62,21 +70,32 @@ class SousCategorieSerializer(serializers.ModelSerializer):
         return instance.categorie.id
     
 
+class ExamenDifficulteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ExamenDifficulte
+        fields = "__all__"
+    
+
 class ExamenSerializer(serializers.ModelSerializer):
-    date_creation = serializers.DateField(format="%d-%m-%Y")
-    date_rendu = serializers.DateField(format="%d-%m-%Y")
+    dt_debut = serializers.DateTimeField(format="%d-%m-%Y %H:%M")
+    dt_fin = serializers.DateTimeField(format="%d-%m-%Y %H:%M")
+    dt_delta = serializers.SerializerMethodField("get_dt_delta")
+    difficulte = ExamenDifficulteSerializer(many=False)
     sous_categorie = SousCategorieSerializer(many=False)
 
     class Meta:
         model = Examen
         fields = "__all__"
 
+    def get_dt_delta(self, instance):
+        return "kekw"
+
 
 class ExamenResultatSerializer(serializers.ModelSerializer):
-    examen = ExamenSerializer(many=False)
     eleve = EleveSerializer(many=False)
     date_rendu = serializers.DateField(format="%d-%m-%Y")
+    examen = ExamenSerializer(many=False)
 
     class Meta:
         model = ExamenResultat
-        fields = "__all__"
+        fields = ("id", "date_rendu", "elo", "eleve", "examen")

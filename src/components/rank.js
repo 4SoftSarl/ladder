@@ -35,7 +35,6 @@ export const examenCard = (difficulte, sousCategorie, params = {}) => {
             className="examen-card"
             style={getStyle()}
         >
-            <span>{difficulte.elo}</span>
             <img
                 className="img-difficulte"
                 src={getUrlImage(difficulte.image)}

@@ -68,6 +68,7 @@ class Examen(models.Model):
     difficulte = models.ForeignKey(ExamenDifficulte, null=True, blank=True, default=None, on_delete=models.PROTECT, related_name="examens")
     sous_categorie = models.ForeignKey(SousCategorie, null=True, blank=True, default=None, on_delete=models.PROTECT, related_name="examens")
     fichier = models.FileField(upload_to="examen/", null=True, blank=True, default=None)
+    volee = models.ForeignKey(Volee, null=True, blank=True, default=None, on_delete=models.PROTECT, related_name="examens")
 
     def __str__(self):
         return self.titre

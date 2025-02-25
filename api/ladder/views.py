@@ -1,10 +1,30 @@
+import os
 from datetime import datetime as dt
 
-from django.http import JsonResponse
+from django.conf import settings
+from django.http import JsonResponse, HttpResponse
 from django.views import View
 from .models import *
 from .serializers import *
 from .utils import *
+
+
+class FrontEnd(View):
+    def get(self, request):
+        try:
+            with open(
+                    os.path.join(settings.STATIC_ROOT, "index.html")
+            ) as f:
+                return HttpResponse(f.read())
+        except FileNotFoundError:
+            return HttpResponse(
+                """
+                This URL is only used when you have built the production
+                version of the app. Visit http://localhost:3000/ instead, or
+                run `yarn run build` to test the production version.
+                """,
+                status=501,
+            )
 
 class VoleeView(View):
     def get(self, request):
@@ -128,10 +148,10 @@ class ExamenView(View):
         if volee_id == 0:
             return JsonResponse({"error": "error"}, safe=False)
         volee = Volee.objects.get(id=volee_id)
-        first_eleve = Eleve.objects.filter(volee=volee).first()
-        ex_res_fe = ExamenResultat.objects.filter(eleve=first_eleve)
-        ex_res_ids = [ex_res.id for ex_res in ex_res_fe]
-        examens = Examen.objects.filter(id__in=ex_res_ids).order_by("-dt_debut")
+        # first_eleve = Eleve.objects.filter(volee=volee).first()
+        # ex_res_fe = ExamenResultat.objects.filter(eleve=first_eleve)
+        # ex_res_ids = [ex_res.id for ex_res in ex_res_fe]
+        examens = Examen.objects.filter(volee=volee).order_by("-dt_debut")
         examens_data = ExamenSerializer(examens, many=True).data
         return JsonResponse(examens_data, safe=False)
 

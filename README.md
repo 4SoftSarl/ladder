@@ -10,6 +10,7 @@ In the project directory, you can run:
 
 Issou 123 test
 J'ai oublié ceci
+Simple push direct depuis main
 
 ### `npm start`
 
